@@ -22,6 +22,7 @@ import dev.d1s.welcomer.service.WelcomerService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.actuate.info.InfoEndpoint
 import org.springframework.stereotype.Service
+import org.yaml.snakeyaml.Yaml
 
 @Service
 internal class WelcomerServiceImpl : WelcomerService {
@@ -44,14 +45,13 @@ internal class WelcomerServiceImpl : WelcomerService {
             }
         }
 
-        val info = infoEndpoint.info().toList()
-
-        info.forEachIndexed { i, (k, v) ->
-            append("$k: $v")
-
-            if (i != (info.size - 1)) {
-                appendLine()
+        val info = infoEndpoint.info()
+            .filter {
+                !welcomerConfigurationProperties.excludeProperties.contains(it.key)
             }
+
+        if (info.isNotEmpty()) {
+            append(Yaml().dump(info))
 
             appended = true
         }

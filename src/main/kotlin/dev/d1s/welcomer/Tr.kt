@@ -13,18 +13,14 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-package dev.d1s.welcomer.properties
+package dev.d1s.welcomer
 
-import dev.d1s.welcomer.constant.DEFAULT_MESSAGE
-import dev.d1s.welcomer.constant.DEFAULT_PADDING
-import dev.d1s.welcomer.constant.WELCOMER_PREFIX
-import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.boot.context.properties.ConstructorBinding
+import org.springframework.boot.actuate.info.Info
+import org.springframework.boot.actuate.info.InfoContributor
 
-@ConstructorBinding
-@ConfigurationProperties(WELCOMER_PREFIX)
-internal data class WelcomerConfigurationProperties(
-    val message: String = DEFAULT_MESSAGE,
-    val padding: Int = DEFAULT_PADDING,
-    val excludeProperties: List<String> = listOf()
-)
+class Tr : InfoContributor {
+    
+    override fun contribute(builder: Info.Builder) {
+        builder.withDetail("dummy", true)
+    }
+}
