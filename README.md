@@ -1,4 +1,4 @@
-[![](https://jitpack.io/v/d1snin/spring-boot-starter-welcomer.svg)](https://jitpack.io/#d1snin/spring-boot-starter-welcomer)
+[![](https://jitpack.io/v/dev.d1s/spring-boot-starter-welcomer.svg)](https://jitpack.io/#d1snin/spring-boot-starter-welcomer)
 
 # spring-boot-starter-welcomer
 
