@@ -15,6 +15,11 @@
 
 package dev.d1s.welcomer.service.impl
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.SerializationFeature
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
+import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import dev.d1s.teabag.stdlib.text.padding
 import dev.d1s.welcomer.constant.DEFAULT_MESSAGE
 import dev.d1s.welcomer.properties.WelcomerConfigurationProperties
@@ -22,7 +27,6 @@ import dev.d1s.welcomer.service.WelcomerService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.actuate.info.InfoEndpoint
 import org.springframework.stereotype.Service
-import org.yaml.snakeyaml.Yaml
 
 @Service
 internal class WelcomerServiceImpl : WelcomerService {
@@ -32,6 +36,12 @@ internal class WelcomerServiceImpl : WelcomerService {
 
     @set:Autowired
     lateinit var infoEndpoint: InfoEndpoint
+
+    private val objectMapper = ObjectMapper(
+        YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
+    ).registerModule(
+        JavaTimeModule()
+    ).disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
 
     override fun getContent() = buildString {
         var appended = false
@@ -51,7 +61,7 @@ internal class WelcomerServiceImpl : WelcomerService {
             }
 
         if (info.isNotEmpty()) {
-            append(Yaml().dump(info))
+            append(objectMapper.writeValueAsString(info))
 
             appended = true
         }

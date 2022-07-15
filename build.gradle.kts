@@ -18,11 +18,13 @@ repositories {
 }
 
 val teabagsVersion: String by project
+val jacksonDataformatYamlVersion: String by project
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("dev.d1s.teabags:teabag-stdlib:$teabagsVersion")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonDataformatYamlVersion")
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib"))
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
