@@ -16,10 +16,6 @@
 package dev.d1s.welcomer.service.impl
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
-import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import dev.d1s.teabag.stdlib.text.padding
 import dev.d1s.welcomer.constant.DEFAULT_MESSAGE
 import dev.d1s.welcomer.properties.WelcomerConfigurationProperties
@@ -37,18 +33,15 @@ internal class WelcomerServiceImpl : WelcomerService {
     @set:Autowired
     lateinit var infoEndpoint: InfoEndpoint
 
-    private val objectMapper = ObjectMapper(
-        YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
-    ).registerModule(
-        JavaTimeModule()
-    ).disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+    @set:Autowired
+    lateinit var yamlObjectMapper: ObjectMapper
 
     override fun getContent() = buildString {
         var appended = false
 
         welcomerConfigurationProperties.message.let {
             if (it.isNotBlank()) {
-                appendLine(welcomerConfigurationProperties.message)
+                appendLine(it)
                 appendLine()
 
                 appended = true
@@ -61,7 +54,7 @@ internal class WelcomerServiceImpl : WelcomerService {
             }
 
         if (info.isNotEmpty()) {
-            append(objectMapper.writeValueAsString(info))
+            append(yamlObjectMapper.writeValueAsString(info))
 
             appended = true
         }

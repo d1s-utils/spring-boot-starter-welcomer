@@ -15,4 +15,14 @@
 
 package dev.d1s.welcomer.constant
 
-internal const val WELCOMER_PREFIX = "welcomer"
+import org.junit.jupiter.api.Test
+import strikt.api.expectThat
+import strikt.assertions.isEqualTo
+
+internal class PropertyPrefixConstantsTest {
+
+    @Test
+    fun `should return valid property prefixes`() {
+        expectThat(WELCOMER_PREFIX) isEqualTo "welcomer"
+    }
+}

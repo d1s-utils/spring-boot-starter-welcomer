@@ -15,4 +15,15 @@
 
 package dev.d1s.welcomer.constant
 
-internal const val WELCOMER_PREFIX = "welcomer"
+import org.junit.jupiter.api.Test
+import strikt.api.expectThat
+import strikt.assertions.isEqualTo
+
+internal class DefaultPropertyValueConstantsTest {
+
+    @Test
+    fun `should return valid default property values`() {
+        expectThat(DEFAULT_MESSAGE) isEqualTo "Welcome."
+        expectThat(DEFAULT_PADDING) isEqualTo 1
+    }
+}

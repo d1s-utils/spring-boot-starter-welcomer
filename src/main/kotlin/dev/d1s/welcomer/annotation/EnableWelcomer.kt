@@ -17,11 +17,13 @@ package dev.d1s.welcomer.annotation
 
 import dev.d1s.welcomer.configuration.ConfigurationPropertiesAutoConfiguration
 import dev.d1s.welcomer.configuration.WelcomerAutoConfiguration
+import dev.d1s.welcomer.configuration.YamlObjectMapperConfiguration
 import org.springframework.context.annotation.Import
 
 @Target(AnnotationTarget.CLASS)
 @Import(
     ConfigurationPropertiesAutoConfiguration::class,
-    WelcomerAutoConfiguration::class
+    WelcomerAutoConfiguration::class,
+    YamlObjectMapperConfiguration::class
 )
 public annotation class EnableWelcomer

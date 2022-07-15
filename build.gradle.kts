@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("maven-publish")
+    id("java-library")
     id("org.springframework.boot") version "2.7.1"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm") version "1.7.10"
@@ -19,6 +20,8 @@ repositories {
 
 val teabagsVersion: String by project
 val jacksonDataformatYamlVersion: String by project
+val springmockkVersion: String by project
+val striktVersion: String by project
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -28,11 +31,29 @@ dependencies {
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib"))
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("com.ninja-squad:springmockk:$springmockkVersion")
+    testImplementation("io.strikt:strikt-jvm:$striktVersion")
+    testImplementation("dev.d1s.teabags:teabag-testing:$teabagsVersion")
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+
+    testLogging {
+        events.addAll(
+            listOf(
+                org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
+                org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED,
+                org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
+            )
+        )
+    }
 }
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
+        freeCompilerArgs = listOf("-Xjsr305=strict", "-Xexplicit-api=strict")
         jvmTarget = "11"
     }
 }
@@ -64,8 +85,4 @@ publishing {
             from(components["java"])
         }
     }
-}
-
-kotlin {
-    explicitApi = org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode.Warning
 }

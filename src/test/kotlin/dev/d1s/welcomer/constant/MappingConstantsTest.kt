@@ -13,14 +13,17 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-package dev.d1s.welcomer
+package dev.d1s.welcomer.constant
 
-import org.springframework.boot.actuate.info.Info
-import org.springframework.boot.actuate.info.InfoContributor
+import org.junit.jupiter.api.Test
+import strikt.api.expectThat
+import strikt.assertions.isEqualTo
 
-class Tr : InfoContributor {
-    
-    override fun contribute(builder: Info.Builder) {
-        builder.withDetail("dummy", true)
+internal class MappingConstantsTest {
+
+    @Test
+    fun `should return valid mapping values`() {
+        expectThat(HOME_MAPPING) isEqualTo "/"
+        expectThat(CONTENT_MAPPING) isEqualTo "/humans.txt"
     }
 }
