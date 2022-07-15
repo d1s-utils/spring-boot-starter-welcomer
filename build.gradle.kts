@@ -22,7 +22,7 @@ val teabagsVersion: String by project
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("com.github.d1s-utils.teabags:teabag-stdlib:$teabagsVersion")
+    implementation("dev.d1s.teabags:teabag-stdlib:$teabagsVersion")
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib"))
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
