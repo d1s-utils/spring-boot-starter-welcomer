@@ -17,4 +17,4 @@ package dev.d1s.welcomer.constant
 
 internal const val DEFAULT_MESSAGE = "Welcome."
 
-internal const val DEFAULT_PADDING = 3
+internal const val DEFAULT_PADDING = 1

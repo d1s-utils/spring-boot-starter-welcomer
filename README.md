@@ -4,7 +4,7 @@
 
 A user-friendly welcomer for your Spring Boot web apps.
 The content is located on the endpoint `/humans.txt ` and on `/` as a redirect to `/humans.txt`.
-Content type is `text/plain`.
+Content type is `text/plain`. This starter uses Actuator's `/info` endpoint (`InfoEndpoint`).
 
 ### Installation
 
@@ -24,7 +24,7 @@ You can configure the content padding, welcoming message and exclude unwanted in
 # your application.yml or any other configuration source
 
 welcomer:
-  padding: 0 # 3 by default.
+  padding: 0 # 1 by default.
   message: "Hey there!" # "Welcome." by default.
   exclude-properties: # [] by default.
     - "git"
