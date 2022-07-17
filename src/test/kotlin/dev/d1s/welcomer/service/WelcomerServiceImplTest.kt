@@ -17,11 +17,13 @@ package dev.d1s.welcomer.service
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.ninjasquad.springmockk.MockkBean
+import dev.d1s.teabag.stdlib.text.padding
 import dev.d1s.teabag.testing.constant.VALID_STUB
 import dev.d1s.welcomer.properties.WelcomerConfigurationProperties
 import dev.d1s.welcomer.service.impl.WelcomerServiceImpl
 import dev.d1s.welcomer.testUtil.DUMMY_PROPERTY_1
 import dev.d1s.welcomer.testUtil.configure
+import dev.d1s.welcomer.testUtil.mockPaddingFun
 import io.mockk.every
 import io.mockk.verifyAll
 import org.junit.jupiter.api.BeforeEach
@@ -59,20 +61,25 @@ internal class WelcomerServiceImplTest {
 
     @Test
     fun `should return valid content`() {
-        expectThat(
-            welcomerServiceImpl.getContent()
-        ) isEqualTo "Welcome.\n\n$VALID_STUB"
+        val expectedContent = "Welcome.\n\n$VALID_STUB"
 
-        verifyAll {
-            welcomerConfigurationProperties.message
-            infoEndpoint.info()
-            welcomerConfigurationProperties.excludeProperties
-            yamlObjectMapper.writeValueAsString(
-                mapOf(
-                    DUMMY_PROPERTY_1 to VALID_STUB
+        mockPaddingFun {
+            expectThat(
+                welcomerServiceImpl.getContent()
+            ) isEqualTo expectedContent
+
+            verifyAll {
+                welcomerConfigurationProperties.message
+                infoEndpoint.info()
+                welcomerConfigurationProperties.excludeProperties
+                yamlObjectMapper.writeValueAsString(
+                    mapOf(
+                        DUMMY_PROPERTY_1 to VALID_STUB
+                    )
                 )
-            )
-            welcomerConfigurationProperties.padding
+                welcomerConfigurationProperties.padding
+                expectedContent.padding(welcomerConfigurationProperties.padding)
+            }
         }
     }
 
@@ -86,14 +93,19 @@ internal class WelcomerServiceImplTest {
             infoEndpoint.info()
         } returns mapOf()
 
-        expectThat(
-            welcomerServiceImpl.getContent()
-        ) isEqualTo "Welcome."
+        val expectedContent = "Welcome."
 
-        verifyAll {
-            welcomerConfigurationProperties.message
-            infoEndpoint.info()
-            welcomerConfigurationProperties.padding
+        mockPaddingFun {
+            expectThat(
+                welcomerServiceImpl.getContent()
+            ) isEqualTo expectedContent
+
+            verifyAll {
+                welcomerConfigurationProperties.message
+                infoEndpoint.info()
+                welcomerConfigurationProperties.padding
+                expectedContent.padding(welcomerConfigurationProperties.padding)
+            }
         }
     }
 }
