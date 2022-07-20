@@ -15,8 +15,8 @@
 
 package dev.d1s.welcomer.service.impl
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import dev.d1s.teabag.stdlib.text.padding
+import dev.d1s.welcomer.configuration.YamlObjectMapper
 import dev.d1s.welcomer.constant.DEFAULT_MESSAGE
 import dev.d1s.welcomer.properties.WelcomerConfigurationProperties
 import dev.d1s.welcomer.service.WelcomerService
@@ -34,7 +34,7 @@ internal class WelcomerServiceImpl : WelcomerService {
     lateinit var infoEndpoint: InfoEndpoint
 
     @set:Autowired
-    lateinit var yamlObjectMapper: ObjectMapper
+    lateinit var yamlObjectMapper: YamlObjectMapper
 
     override fun getContent() = buildString {
         var appended = false

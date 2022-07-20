@@ -15,10 +15,10 @@
 
 package dev.d1s.welcomer.service
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.ninjasquad.springmockk.MockkBean
 import dev.d1s.teabag.stdlib.text.padding
 import dev.d1s.teabag.testing.constant.VALID_STUB
+import dev.d1s.welcomer.configuration.YamlObjectMapper
 import dev.d1s.welcomer.properties.WelcomerConfigurationProperties
 import dev.d1s.welcomer.service.impl.WelcomerServiceImpl
 import dev.d1s.welcomer.testUtil.DUMMY_PROPERTY_1
@@ -50,7 +50,7 @@ internal class WelcomerServiceImplTest {
     private lateinit var infoEndpoint: InfoEndpoint
 
     @MockkBean
-    private lateinit var yamlObjectMapper: ObjectMapper
+    private lateinit var yamlObjectMapper: YamlObjectMapper
 
     @BeforeEach
     fun setUp() {

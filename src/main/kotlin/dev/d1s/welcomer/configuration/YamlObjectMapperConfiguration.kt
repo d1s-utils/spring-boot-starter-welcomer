@@ -23,11 +23,13 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
+internal class YamlObjectMapper(yamlFactory: YAMLFactory) : ObjectMapper(yamlFactory)
+
 @Configuration
 public class YamlObjectMapperConfiguration {
 
     @Bean
-    internal fun yamlObjectMapper() = ObjectMapper(
+    internal fun yamlObjectMapper() = YamlObjectMapper(
         YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
     ).registerModule(
         JavaTimeModule()
