@@ -16,12 +16,13 @@
 package dev.d1s.welcomer.service.impl
 
 import dev.d1s.teabag.stdlib.text.padding
-import dev.d1s.welcomer.configuration.YamlObjectMapper
 import dev.d1s.welcomer.constant.DEFAULT_MESSAGE
+import dev.d1s.welcomer.objectMapper.YamlObjectMapper
 import dev.d1s.welcomer.properties.WelcomerConfigurationProperties
 import dev.d1s.welcomer.service.WelcomerService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.actuate.info.InfoEndpoint
+import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Service
 
 @Service
@@ -33,6 +34,7 @@ internal class WelcomerServiceImpl : WelcomerService {
     @set:Autowired
     lateinit var infoEndpoint: InfoEndpoint
 
+    @set:Lazy
     @set:Autowired
     lateinit var yamlObjectMapper: YamlObjectMapper
 

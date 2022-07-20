@@ -15,18 +15,16 @@
 
 package dev.d1s.welcomer.configuration
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import dev.d1s.welcomer.objectMapper.YamlObjectMapper
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
-internal class YamlObjectMapper(yamlFactory: YAMLFactory) : ObjectMapper(yamlFactory)
-
 @Configuration
-public class YamlObjectMapperConfiguration {
+public class YamlObjectMapperAutoConfiguration {
 
     @Bean
     internal fun yamlObjectMapper() = YamlObjectMapper(

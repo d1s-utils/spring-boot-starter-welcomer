@@ -17,8 +17,8 @@ package dev.d1s.welcomer.testUtil
 
 import dev.d1s.teabag.stdlib.text.padding
 import dev.d1s.teabag.testing.constant.VALID_STUB
-import dev.d1s.welcomer.configuration.YamlObjectMapper
 import dev.d1s.welcomer.constant.DEFAULT_MESSAGE
+import dev.d1s.welcomer.objectMapper.YamlObjectMapper
 import dev.d1s.welcomer.properties.WelcomerConfigurationProperties
 import dev.d1s.welcomer.service.impl.WelcomerServiceImpl
 import io.mockk.every

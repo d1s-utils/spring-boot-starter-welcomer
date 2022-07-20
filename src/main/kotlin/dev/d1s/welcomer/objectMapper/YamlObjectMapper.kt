@@ -13,17 +13,11 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-package dev.d1s.welcomer.annotation
+package dev.d1s.welcomer.objectMapper
 
-import dev.d1s.welcomer.configuration.ConfigurationPropertiesAutoConfiguration
-import dev.d1s.welcomer.configuration.WelcomerAutoConfiguration
-import dev.d1s.welcomer.configuration.YamlObjectMapperAutoConfiguration
-import org.springframework.context.annotation.Import
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
+import org.springframework.stereotype.Component
 
-@Target(AnnotationTarget.CLASS)
-@Import(
-    ConfigurationPropertiesAutoConfiguration::class,
-    WelcomerAutoConfiguration::class,
-    YamlObjectMapperAutoConfiguration::class
-)
-public annotation class EnableWelcomer
+@Component
+internal class YamlObjectMapper(yamlFactory: YAMLFactory) : ObjectMapper(yamlFactory)

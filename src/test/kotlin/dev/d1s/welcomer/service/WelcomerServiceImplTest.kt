@@ -18,7 +18,7 @@ package dev.d1s.welcomer.service
 import com.ninjasquad.springmockk.MockkBean
 import dev.d1s.teabag.stdlib.text.padding
 import dev.d1s.teabag.testing.constant.VALID_STUB
-import dev.d1s.welcomer.configuration.YamlObjectMapper
+import dev.d1s.welcomer.objectMapper.YamlObjectMapper
 import dev.d1s.welcomer.properties.WelcomerConfigurationProperties
 import dev.d1s.welcomer.service.impl.WelcomerServiceImpl
 import dev.d1s.welcomer.testUtil.DUMMY_PROPERTY_1
