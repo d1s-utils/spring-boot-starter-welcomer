@@ -15,10 +15,6 @@
 
 package dev.d1s.welcomer.configuration
 
-import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
-import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import dev.d1s.welcomer.objectMapper.YamlObjectMapper
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -27,9 +23,5 @@ import org.springframework.context.annotation.Configuration
 public class YamlObjectMapperAutoConfiguration {
 
     @Bean
-    internal fun yamlObjectMapper() = YamlObjectMapper(
-        YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
-    ).registerModule(
-        JavaTimeModule()
-    ).disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+    internal fun yamlObjectMapper() = YamlObjectMapper()
 }

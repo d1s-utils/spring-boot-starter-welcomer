@@ -16,8 +16,20 @@
 package dev.d1s.welcomer.objectMapper
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
+import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import org.springframework.stereotype.Component
 
 @Component
-internal class YamlObjectMapper(yamlFactory: YAMLFactory) : ObjectMapper(yamlFactory)
+internal class YamlObjectMapper {
+
+    private val objectMapper = ObjectMapper(
+        YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
+    ).registerModule(
+        JavaTimeModule()
+    ).disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+
+    fun writeValueAsString(value: Any): String = objectMapper.writeValueAsString(value)
+}
